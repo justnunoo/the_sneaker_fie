@@ -1,0 +1,171 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+{% block content %}
+<div class="mt-4 pt-5">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          {% if order %}
+            <a href="{% url 'order_details' order.id %}">Click here to see order details.</a>
+            {% endif %}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+
+
+<div class="container-fluid mt-4 pt-4">
+    <h1>Your Cart</h1>
+    {% if items %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Size</th>
+                        <th>Color</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                        <tr>
+                            <td>{{ item.product.name }}</td>
+                            <td>{{ item.size }}</td>
+                            <td>{{ item.color }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td><span>&#8373;</span>{{ item.price }}</td>
+                            <td>
+                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal{{ item.id }}">
+                                    Update
+                                </button>
+                                {% include 'partials/update_cart_modal.html' %}
+                                <a href="{% url 'remove_from_cart' item.id %}" class="btn btn-danger btn-sm my-0"> remove </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-6 text-start">
+                <a href="{% url 'empty_cart' %}" class="btn btn-danger btn-md my-0">Empty Cart</a>
+            </div>
+            <div class="col-md-6 text-end">
+                <form method="post" action="{% url 'create_order' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary" id="orderForm">Order</button>
+                </form>                
+            </div>
+        </div>
+    {% else %}
+        <p>Your cart is empty</p>
+    {% endif %}
+</div>
+
+<!-- Order Success Modal -->
+<div class="modal fade" id="orderSuccessModal" tabindex="-1" aria-labelledby="orderSuccessModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="orderSuccessModalLabel">Order Placed Successfully!</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Your order has been successfully placed.
+        </div>
+        <div class="modal-footer">
+          <a href="#" id="viewOrderDetailsBtn" class="btn btn-primary">View Order Details</a>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- <script>
+    $(document).ready(function () {
+    // Function to show the modal
+    function showOrderSuccessModal(orderDetailsUrl) {
+        $('#orderSuccessModal').modal('show');
+        // Redirect to the order details page when the modal is closed
+        $('#orderSuccessModal').on('hidden.bs.modal', function (e) {
+            window.location.href = orderDetailsUrl;
+        });
+    }
+
+    // Handle the response from the server
+    $(document).ready(function () {
+        $('#orderForm').submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '{% url 'create_order' %}',
+                data: $(this).serialize(),
+                success: function (data) {
+                    if (data.success) {
+                        // Show the modal
+                        showOrderSuccessModal(data.order_details_url);
+                    } else {
+                        // Handle error
+                        console.log('Order placement failed.');
+                    }
+                },
+                error: function () {
+                    console.log('Error occurred while placing the order.');
+                }
+            });
+        });
+    });
+});
+</script> -->
+
+<!-- <script>
+$(document).ready(function () {
+    // Function to show the modal
+    function showOrderSuccessModal(orderDetailsUrl) {
+        $('#orderSuccessModal').modal('show');
+        // Redirect to the order details page when the modal is closed
+        $('#orderSuccessModal').on('hidden.bs.modal', function (e) {
+            window.location.href = orderDetailsUrl;
+        });
+    }
+
+    // Handle the response from the server
+    $('#orderForm').submit(function (event) {
+        event.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '{% url 'create_order' %}',
+            data: $(this).serialize(),
+            success: function (data) {
+                if (data.success) {
+                    // Show the modal
+                    showOrderSuccessModal(data.order_details_url);
+                } else {
+                    // Handle error
+                    console.log('Order placement failed.');
+                }
+            },
+            error: function () {
+                console.log('Error occurred while placing the order.');
+            }
+        });
+    });
+});
+</script> -->
+{% endblock %}
+
+{% block show_nav %}
+    {% with False as show_nav %}
+        {{ show_nav }}
+    {% endwith %}
+{% endblock %}

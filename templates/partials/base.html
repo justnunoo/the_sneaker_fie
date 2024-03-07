@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="Shoes, Nike, Adidas, Jordan, Vans, Puma, New Balance">
+  <link rel="stylesheet" href="{% static 'base.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="icon" type="image/x-icon" href="{% static 'logo.ico' %}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <title>SNEAKER FIE</title>
+</head>
+<body class="d-flex flex-column min-vh-100" style="background-color: rgb(234, 234, 234);">
+
+<!--Adding Nav HTML-->
+{% include 'partials/nav.html' %}
+
+<div>
+  
+
+{% block content %}
+{% endblock %}
+</div>
+<!-- Pagination -->
+{% if show_nav %}
+  <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3" id="pagination">
+  <ul class="pagination">
+    <li class="page-item disabled">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">4</a></li>
+    <li class="page-item"><a class="page-link" href="#">5</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>  
+{% endif %}
+<!-- Pagination -->  
+</div>
+</main>
+ <!--Main layout-->
+
+<footer class="text-center text-white mt-4" style="background-color: #607D8B">
+  
+  <hr class="text-dark">
+  
+  <div class="container">
+    <!-- Section: Social media -->
+    <section class="mb-3">
+      
+      <!-- Facebook -->
+      <a
+        class="btn-link btn-floating btn-lg text-white"
+        href="#!"
+        role="button"
+        data-mdb-ripple-color="dark"
+        ><i class="fab fa-facebook-f"></i
+      ></a>
+
+      <!-- Twitter -->
+      <a
+        class="btn-link btn-floating btn-lg text-white"
+        href="#!"
+        role="button"
+        data-mdb-ripple-color="dark"
+        ><i class="fab fa-twitter"></i
+      ></a>
+
+      <!-- Google -->
+      <a
+        class="btn-link btn-floating btn-lg text-white"
+        href="#!"
+        role="button"
+        data-mdb-ripple-color="dark"
+        ><i class="fab fa-google"></i
+      ></a>
+
+      <!-- Instagram -->
+      <a
+        class="btn-link btn-floating btn-lg text-white"
+        href="#!"
+        role="button"
+        data-mdb-ripple-color="dark"
+        ><i class="fab fa-instagram"></i
+      ></a>
+
+      <!-- YouTube -->
+      <a
+        class="btn-link btn-floating btn-lg text-white"
+        href="#!"
+        role="button"
+        data-mdb-ripple-color="dark"
+        ><i class="fab fa-youtube"></i
+      ></a>
+      <!-- Github -->
+      <a
+        class="btn-link btn-floating btn-lg text-white"
+        href="#!"
+        role="button"
+        data-mdb-ripple-color="dark"
+        ><i class="fab fa-github"></i
+      ></a>
+    </section>
+    <!-- Section: Social media -->
+  </div>
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2); text-color: #E0E0E0">
+    © 2022 Copyright
+    <!-- <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a> -->
+  </div>
+  <!-- Copyright -->
+</footer>
+<script src="{% static 'options.js' %}" ></script>
+</body>
+</html>
